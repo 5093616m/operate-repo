@@ -21,7 +21,9 @@ pipeline {
 
           stage('Opr-S2-5093616m') {
           steps {
-            script {
+            curl –Is http://uat_5093616m.localdomain|head –n 1  > /tmp/uat-result-file
+	    cat /tmp/uat-result-file
+	    script {
                 v2 = input ( 
                        message: 'Action',
                        parameters: [choice(name:'',choices: ['Deploy to Production Environment', 'Rollback'])]
