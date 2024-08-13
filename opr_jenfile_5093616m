@@ -2,17 +2,32 @@
 pipeline {
       agent any
       stages {
-          stage('One') {
+          stage('Opr-S1-5093616m') {
           steps {
-            echo 'Continue from previous phase: Ready to deploy next environment.'
+            sh '''#!/bin/bash
+            puppet resource file /tmp/clone ensure=absent force=true;
+            puppet resource file /tmp/clone ensure=directory;
+	    cd /tmp/clone;
+	    git clone https://github.com/5093616m/devops_repo.git;
+            targets=puppetclient1;
+            locate_script='/tmp/clone/devops_repo/script_to_run';
+            bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
+            '''
+
+	    echo “Opr-S1-5093616m: uat web server is backup and updated”
           }
           }
-          stage('Two') {
+
+          stage('Opr-S2-5093616m') {
           steps {
             input('Do you want to update to UAT container?')
+	    echo “Opr-S2-5093616m: uat svr is running after update"
+	    else 
+	    echo “Opr-S2-5093616m>: uat svr fails after update and is rolled back”
           }
           }
-          stage('Three') {
+
+          stage('Opr-S3-5093616m') {
           when {
                 not {
                     branch "UAT container NOT updated"
@@ -31,13 +46,15 @@ pipeline {
                  echo "UAT container updated"
           }
           }
-          stage('Four') {
+
+          stage('Opr-S4-5093616m') {
           steps {
             input('Do you want to deploy to Production container?')
                 
           }
           }
-          stage('Five') {
+
+          stage('Opr-S5-5093616m') {
           when {
                 not {
                     branch "Production container NOT updated"
@@ -52,7 +69,14 @@ pipeline {
                  echo "Production container updated"
           }
           }
-          stage('Completed updating Operation') {
+
+          stage('Opr-S6-5093616m') {
+          steps {
+            echo 'Completed updating to Production Container'
+          }
+          }
+	
+          stage('Opr-S7-5093616m') {
           steps {
             echo 'Completed updating to Production Container'
           }
