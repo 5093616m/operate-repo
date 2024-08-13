@@ -7,8 +7,8 @@ pipeline {
             docker rmi bk_uat_image
 	    docker commit uat_5093616m bk_uat_image
 	    sh '''#!/bin/bash
-            puppet resource file /tmp/clone ensure=absent force=true;
-            puppet resource file /tmp/clone ensure=directory;
+            puppet resource file /tmp/5093616m/work ensure=absent force=true;
+            puppet resource file /tmp/5093616m/work ensure=directory;
 	    cd /tmp/5093616m/work;
 	    git clone https://github.com/5093616m/operate-repo-5093616m.git;
             targets=uat_5093616m;
