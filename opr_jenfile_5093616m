@@ -22,16 +22,12 @@ pipeline {
           stage('Opr-S2-5093616m') {
           steps {
             curl –Is http://uat_5093616m.localdomain|head –n 1  > /tmp/uat-result-file
-	    cat /tmp/uat-result-file
+	    cat /tmp/uat-result-fil
 	    script {
-                v2 = input ( 
-                       message: 'Action',
-                       parameters: [choice(name:'',choices: ['Deploy to Production Environment', 'Rollback'])]
-                            )
-		if (v2 == 'Rollback') {
-                   echo 'Opr-S2-5093616m: uat svr fails after update and is rolled back'
-                   } else if (v2 == 'Deploy to Production Environment') {
-  	            echo "Opr-S2-5093616m: uat svr is running after update"
+		if (v2 == 'HTTP/1.1  200 OK') {
+                   echo 'Opr-S2-5093616m: uat svr is running after update'
+                   } else if (v2 == ' ') {
+  	            echo 'Opr-S2-5093616m: uat svr fails after update and is rolled back'
                    }	      
             }
           }
