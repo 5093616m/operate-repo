@@ -21,7 +21,13 @@ pipeline {
 
           stage('Opr-S2-5093616m') {
           steps {
-            input('Do you want to update to UAT container?')
+            script {
+                v2 = input ( 
+                       message: 'Action',
+                       parameters: [choice(name:'',choices: ['Deploy to Production Environment', 'Rollback'])]
+                            )
+            }
+	    input('Do you want to update to UAT container?')
 	    echo “Opr-S2-5093616m: uat svr is running after update"
 	    else 
 	    echo “Opr-S2-5093616m>: uat svr fails after update and is rolled back”
