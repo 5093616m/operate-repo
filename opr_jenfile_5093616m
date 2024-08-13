@@ -26,10 +26,12 @@ pipeline {
                        message: 'Action',
                        parameters: [choice(name:'',choices: ['Deploy to Production Environment', 'Rollback'])]
                             )
+		if (v2 == 'Rollback') {
+                   echo 'Opr-S2-5093616m: uat svr fails after update and is rolled back'
+                   } else if (v2 == 'Deploy to Production Environment') {
+  	            echo "Opr-S2-5093616m: uat svr is running after update"
+                   }	      
             }
-	    echo “Opr-S2-5093616m: uat svr is running after update"
-	    else 
-	    echo “Opr-S2-5093616m>: uat svr fails after update and is rolled back”
           }
           }
 
