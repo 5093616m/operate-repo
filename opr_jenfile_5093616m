@@ -1,4 +1,4 @@
-
+          
 pipeline {
       agent any
       stages {
@@ -7,7 +7,9 @@ pipeline {
           sh 'docker rmi bkup_uat_image'
 	  sh 'docker commit uat_5093616m bkup_uat_image'
 	  sh '''#!/bin/bash
-          puppet resource file /tmp/5093616m/work ensure=absent force=true;
+          puppet resource file /tmp/5093616m ensure=absent force=true;
+          puppet resource file /tmp/5093616m ensure=directory;
+	  puppet resource file /tmp/5093616m/work ensure=absent force=true;
           puppet resource file /tmp/5093616m/work ensure=directory;
 	  cd /tmp/5093616m/work;
 	  git clone https://github.com/5093616m/operate-repo-5093616m.git;
