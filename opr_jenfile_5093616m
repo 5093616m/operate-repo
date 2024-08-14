@@ -24,7 +24,7 @@ pipeline {
           stage('Opr-S2-5093616m') {
           steps {
             sh 'curl –Is http://uat_5093616m.localdomain|head –n 1  > /tmp/uat-result-file'
-	    sh 'cat /tmp/uat-result-result'
+	    sh 'cat /tmp/uat-result-file'
 	    script {
 		if ('cat /tmp/uat-result-file' == 'HTTP/1.1  200 OK') {
                    echo 'Opr-S2-5093616m: uat svr is running after update'
