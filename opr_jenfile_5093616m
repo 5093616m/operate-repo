@@ -4,8 +4,8 @@ pipeline {
       stages {
           stage('Opr-S1-5093616m') {
           steps {
-            docker rmi bk_uat_image
-	    docker commit uat_5093616m bk_uat_image
+            sh 'docker rmi bk_uat_image'
+	    sh 'docker commit uat_5093616m bk_uat_image'
 	    sh '''#!/bin/bash
             puppet resource file /tmp/5093616m/work ensure=absent force=true;
             puppet resource file /tmp/5093616m/work ensure=directory;
@@ -21,12 +21,12 @@ pipeline {
 
           stage('Opr-S2-5093616m') {
           steps {
-            curl –Is http://uat_5093616m.localdomain|head –n 1  > /tmp/uat-result-file
-	    cat /tmp/uat-result-file
+            sh 'curl –Is http://uat_5093616m.localdomain|head –n 1  > /tmp/uat-result-file'
+	    sh 'cat /tmp/uat-result-file'
 	    script {
-		if (v2 == 'HTTP/1.1  200 OK') {
+		if (uat-result-file == 'HTTP/1.1  200 OK') {
                    echo 'Opr-S2-5093616m: uat svr is running after update'
-                   } else if (v2 == ' ') {
+                   } else 
   	            echo 'Opr-S2-5093616m: uat svr fails after update and is rolled back'
                    }	      
             }
