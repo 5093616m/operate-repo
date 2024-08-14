@@ -3,20 +3,20 @@ pipeline {
       agent any
       stages {
           stage('Opr-S1-5093616m') {
-          steps {
-            sh'docker rmi bk_uat_image'
-	    sh'docker commit uat_5093616m bk_uat_image'
-	    sh '''#!/bin/bash
-            puppet resource file /tmp/5093616m/work ensure=absent force=true;
-            puppet resource file /tmp/5093616m/work ensure=directory;
-	    cd /tmp/5093616m/work;
-	    git clone https://github.com/5093616m/operate-repo-5093616m.git;
-            targets=uat_5093616m;
-            locate_script='/tmp/5093616m/work/operate-repo-5093616m/script_5093616m';
-            bolt script run $locate_script -t $targets -u clientadm -p abc123 --no-host-key-check --run-as root;
-            '''
-	    echo 'Opr-S1-5093616m: uat web server is backup and updated'
-          }
+             steps {
+               sh 'docker rmi bk_uat_image'
+	       sh 'docker commit uat_5093616m bk_uat_image'
+	       sh '''#!/bin/bash
+               puppet resource file /tmp/5093616m/work ensure=absent force=true;
+               puppet resource file /tmp/5093616m/work ensure=directory;
+	       cd /tmp/5093616m/work;
+	       git clone https://github.com/5093616m/operate-repo-5093616m.git;
+               targets=uat_5093616m;
+               locate_script='/tmp/5093616m/work/operate-repo-5093616m/script_5093616m';
+               bolt script run $locate_script -t $targets -u clientadm -p abc123 --no-host-key-check --run-as root;
+               '''
+	       echo 'Opr-S1-5093616m: uat web server is backup and updated'
+             }
           }
 
           stage('Opr-S2-5093616m') {
