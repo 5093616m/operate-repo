@@ -24,15 +24,15 @@ pipeline {
             sh 'curl –Is http://uat_5093616m.localdomain|head –n 1  > /tmp/uat-result-file'
 	    sh 'cat /tmp/uat-result-file'
 	    script {
-		if (uat-result-file == 'HTTP/1.1  200 OK') {
+		if ('cat /tmp/uat-result-file' == 'HTTP/1.1  200 OK') {
                    echo 'Opr-S2-5093616m: uat svr is running after update'
-                   } else 
+                   } else {
   	            echo 'Opr-S2-5093616m: uat svr fails after update and is rolled back'
-                   }	      
-            }
+                   }
+	    }
           }
           }
-
+          
           stage('Opr-S3-5093616m') {
           when {
                 not {
