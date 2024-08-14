@@ -4,8 +4,8 @@ pipeline {
       stages {
           stage('Opr-S1-5093616m') {
           steps {
-            sh 'docker rmi bk_uat_image'
-	    sh 'docker commit uat_5093616m bk_uat_image'
+            sh'docker rmi bk_uat_image'
+	    sh'docker commit uat_5093616m bk_uat_image'
 	    sh '''#!/bin/bash
             puppet resource file /tmp/5093616m/work ensure=absent force=true;
             puppet resource file /tmp/5093616m/work ensure=directory;
