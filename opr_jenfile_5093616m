@@ -4,8 +4,8 @@ pipeline {
       stages {
           stage('Opr-S1-5093616m') {
 	  steps {
-          sh 'docker rmi bk_uat_image'
-	  sh 'docker commit uat_5093616m bk_uat_image'
+          sh 'docker rmi bkup_uat_image'
+	  sh 'docker commit uat_5093616m bkup_uat_image'
 	  sh '''#!/bin/bash
           puppet resource file /tmp/5093616m/work ensure=absent force=true;
           puppet resource file /tmp/5093616m/work ensure=directory;
@@ -54,8 +54,8 @@ pipeline {
 
           stage('Opr-S5-5093616m') {
           steps {
-          sh 'docker rmi bk_prod_image'
-	  sh 'docker commit prod_5093616m bk_prod_image'
+          sh 'docker rmi bkup_prod_image'
+	  sh 'docker commit prod_5093616m bkup_prod_image'
 	  sh '''#!/bin/bash
           targets=prod_5093616m;
           locate_script='/tmp/5093616m/work/operate-repo-5093616m/script_5093616m';
