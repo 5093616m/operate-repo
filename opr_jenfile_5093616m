@@ -28,7 +28,7 @@ pipeline {
 	    script {
 		if ('cat /tmp/uat-result-file' == 'HTTP/1.1  200 OK') {
                    echo 'Opr-S2-5093616m: uat svr is running after update'
-                   } else {
+                   } else if  {
   	            echo 'Opr-S2-5093616m: uat svr fails after update and is rolled back'
                    }
 	    }
@@ -83,14 +83,14 @@ pipeline {
           stage('Opr-S7-5093616m') {
           steps {
  	    script {
-	       v2 = input ( 
+	       v3 = input ( 
                        message: 'Action',
                        parameters: [choice(name:'',choices: [' Proceed to further system health check', 'Release prod web server to production'])]
                             )
                        }
-               if (v2 == 'Proceed to further system health check') {
+               if (v3 == 'Proceed to further system health check') {
                    echo 'Opr-S7-5093616m: Proceed to further system health check'
-                   } else if (v2 == 'Release prod web server to production') {
+                   } else if (v3 == 'Release prod web server to production') {
   	            echo "Opr-S7-5093616m: prod web server is updated and ready"
                    }	      
           }
