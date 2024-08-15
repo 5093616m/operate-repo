@@ -64,7 +64,8 @@ pipeline {
 	     puppet resource file /tmp/5093616m/work ensure=absent force=true;
              puppet resource file /tmp/5093616m/work ensure=directory;
 	     cd /tmp/5093616m/work;
-	     git clone https://github.com/5093616m/operate-repo-5093616m.git;targets=prod_5093616m;
+	     git clone https://github.com/5093616m/operate-repo-5093616m.git;
+	     targets=prod_5093616m;
              locate_script='/tmp/5093616m/work/operate-repo-5093616m/script_5093616m';
              bolt script run $locate_script -t $targets -u clientadm -p abc123 --no-host-key-check --run-as root;
              '''
