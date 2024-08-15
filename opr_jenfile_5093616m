@@ -23,6 +23,7 @@ pipeline {
 
           stage('Opr-S2-5093616m') {
             steps {
+	      sh 'chmod 777 /tmp/uat-result-file'
 	      sh 'curl -Is http://localhost:32600| head –n 1 >> /tmp/uat-result-file'
 	      sh 'cat /tmp/uat-result-file'
 	      script {
