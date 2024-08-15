@@ -39,7 +39,7 @@ pipeline {
           stage('Opr-S3-5093616m') {
           steps {
             v1 = input ( 
-                       message:('Do you want to generate load test report for uat web server?',
+                       message:'Do you want to generate load test report for uat web server?',
                        parameters: [choice(name:'',choices: [' Proceed to generate load test report (uat server is running)', 'Abort (uat server is rolled back)'])]
                        )
                        }
