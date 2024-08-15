@@ -75,7 +75,7 @@ pipeline {
 
           stage('Opr-S6-5093616m') {
             steps {
-              sh 'curl -Is http://prod_5093616m.localdomain | head –n 1  > /tmp/prod-result-file'
+              sh 'curl -I --head http://localhost:32700 > /tmp/prod-result-file'
 	      sh 'cat /tmp/prod-result-file'
 	      script {
 		if ('cat /tmp/prod-result-file' == 'HTTP/1.1  200 OK') {
