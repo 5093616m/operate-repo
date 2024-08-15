@@ -3,22 +3,22 @@ pipeline {
       agent any
       stages {
           stage('Opr-S1-5093616m') {
-	  steps {
-          sh 'docker rmi bkup_uat_image'
-	  sh 'docker commit uat_5093616m bkup_uat_image'
-	  sh '''#!/bin/bash
-          puppet resource file /tmp/5093616m ensure=absent force=true;
-          puppet resource file /tmp/5093616m ensure=directory;
-	  puppet resource file /tmp/5093616m/work ensure=absent force=true;
-          puppet resource file /tmp/5093616m/work ensure=directory;
-	  cd /tmp/5093616m/work;
-	  git clone https://github.com/5093616m/operate-repo-5093616m.git;
-          targets=uat_5093616m;
-          locate_script='/tmp/5093616m/work/operate-repo-5093616m/script_5093616m';
-          bolt script run $locate_script -t $targets -u clientadm -p abc123 --no-host-key-check --run-as root;
-          '''
-	  echo 'Opr-S1-5093616m: uat web server is backup and updated'
-          }
+	    steps {
+            sh 'docker rmi bkup_uat_image'
+	    sh 'docker commit uat_5093616m bkup_uat_image'
+	    sh '''#!/bin/bash
+            puppet resource file /tmp/5093616m ensure=absent force=true;
+            puppet resource file /tmp/5093616m ensure=directory;
+	    puppet resource file /tmp/5093616m/work ensure=absent force=true;
+            puppet resource file /tmp/5093616m/work ensure=directory;
+	    cd /tmp/5093616m/work;
+	    git clone https://github.com/5093616m/operate-repo-5093616m.git;
+            targets=uat_5093616m;
+            locate_script='/tmp/5093616m/work/operate-repo-5093616m/script_5093616m';
+            bolt script run $locate_script -t $targets -u clientadm -p abc123 --no-host-key-check --run-as root;
+            '''
+	    echo 'Opr-S1-5093616m: uat web server is backup and updated'
+            }
           }
 
           stage('Opr-S2-5093616m') {
@@ -35,6 +35,7 @@ pipeline {
 	      }
             }
           }
+
           stage('Opr-S3-5093616m') {
             steps {
               script {
@@ -46,6 +47,7 @@ pipeline {
               echo 'Opr-S3-5093616m: Proceed to generate load test report for uat web server'
             }
           }
+
           stage('Opr-S4-5093616m') {
             steps {
             echo 'Opr-S4-5093616m: load test for uat web server is successful'
@@ -94,4 +96,5 @@ pipeline {
               }
             }
           }
+  }
 }
