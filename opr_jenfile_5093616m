@@ -88,7 +88,6 @@ pipeline {
                        message: 'Action',
                        parameters: [choice(name:'',choices: [' Proceed to further system health check', 'Release prod web server to production'])]
                             )
-                       }
                if (v3 == 'Proceed to further system health check') {
                    echo 'Opr-S7-5093616m: Proceed to further system health check'
                    } else if (v3 == 'Release prod web server to production') {
