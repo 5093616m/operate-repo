@@ -28,7 +28,7 @@ pipeline {
 	      script {
 	      va = 'cat /tmp/uat-result-file'
 	      vb = 'HTTP/1.1 200 OK'
-		if ('va'='vb')
+		if ('va'=='vb')
 		then
   		echo 'Opr-S2-5093616m: uat svr is running after update'
                 else
