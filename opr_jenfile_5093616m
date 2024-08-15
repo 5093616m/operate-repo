@@ -26,16 +26,8 @@ pipeline {
 	      sh 'curl -I --head http://localhost:32600 > /tmp/uat-result-file'
 	      sh 'cat /tmp/uat-result-file'
 	      script {
-	      va = 'cat /tmp/uat-result-file'
-	      vb = 'HTTP/1.1 200 OK
-		    Date: Thu, 15 Aug 2024 21:58:27 GMT
-		    Server: Apache/2.4.29 (Ubuntu)
-		    Last-Modified: Wed, 14 Aug 2024 15:11:54 GMT
-		    ETag: "2aa6-61fa6257aad33"
-		    Accept-Ranges: bytes
-		    Content-Length: 10918
-		    Vary: Accept-Encoding
-		    Content-Type: text/html'
+	      	va = 'cat /tmp/uat-result-file'
+	      	vb = 'HTTP/1.1 200 OK'
 		if ('va'=='vb')
   		  echo 'Opr-S2-5093616m: uat svr is running after update'
 		else
