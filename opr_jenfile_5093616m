@@ -94,9 +94,10 @@ pipeline {
                             )
                  if (v3 == 'Proceed to further system health check') {
                    echo 'Opr-S7-5093616m: Proceed to further system health check'
-                   } else if (v3 == 'Release prod web server to production') {
-  	            echo "Opr-S7-5093616m: prod web server is updated and ready"
-                   }	      
+                 } 
+                 else (v3 == 'Release prod web server to production') {
+  	           echo "Opr-S7-5093616m: prod web server is updated and ready"
+                 }	      
               }
             }
           }
