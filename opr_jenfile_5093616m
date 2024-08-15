@@ -36,14 +36,9 @@ pipeline {
           }
           
           stage('Opr-S3-5093616m') {
-          when {
-                not {
-                    branch "UAT container NOT updated"
-                }
-          }
           steps {
-                
-                 echo "UAT container updated"
+            input('Do you want to update to UAT container?')
+            echo 'Opr-S3-5093616m: Proceed to generate load test report for uat web server'
           }
           }
 
