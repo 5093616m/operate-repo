@@ -26,11 +26,12 @@ pipeline {
 	      sh 'curl -I --head http://localhost:32600 > /tmp/uat-result-file'
 	      sh 'cat /tmp/uat-result-file'
 	      script {
-	      	  if ($grep "HTTP/1.1 200 OK" /tmp/uat-result-file) {
+	        def va = sh(returnStdout: true, script: "grep "HTTP/1.1 200 OK" /tmp/uat-result-file"}
+	      	if (va.contains("200")) {
   		  echo 'Opr-S2-5093616m: uat svr is running after update'
-		} else {
+		}else {
   	          echo 'Opr-S2-5093616m: uat svr fails after update and is rolled back'
-                  }
+                }
               }
 	     }
           }
