@@ -39,7 +39,7 @@ pipeline {
           stage('Opr-S3-5093616m') {
             steps {
               script {
-                input ('Do you want to generate load test report for uat web server?')
+                input ('Proceed to generate load test report (uat server is running) or Abort (uat server is rolled back)?')
                        }
                 echo 'Opr-S3-5093616m: Proceed to generate load test report for uat web server'
             }
