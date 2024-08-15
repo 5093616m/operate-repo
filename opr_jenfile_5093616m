@@ -78,13 +78,13 @@ pipeline {
               sh 'curl -I --head http://localhost:32700 > /tmp/prod-result-file'
 	      sh 'cat /tmp/prod-result-file'
 	      script {
-		if ('cat /tmp/prod-result-file' == 'HTTP/1.1  200 OK') {
-                echo 'Opr-S6-5093616m: prod svr is running after update'
-                } 
-		else {
-  	        echo 'Opr-S6-5093616m: prod svr fails after update and is rolled back'
-                   }
-	      }
+	        def vb = sh(returnStdout: true, script: "cat /tmp/prod-result-file")
+	      	if (vb.contains("200")) {
+  		  echo 'Opr-S6-5093616m: prod svr is running after update'
+		}else {
+  	          echo 'Opr-S6-5093616m: prod svr fails after update and is rolled back'
+                }
+              }
             }
           }
 	
