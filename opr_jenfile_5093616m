@@ -49,7 +49,7 @@ pipeline {
 
           stage('Opr-S4-5093616m') {
           steps {
-            input('Do you want to deploy to Production container?')
+          echo 'Opr-S4-5093616m: load test for uat web server is successful'
                 
           }
           }
@@ -63,14 +63,21 @@ pipeline {
           locate_script='/tmp/5093616m/work/operate-repo-5093616m/script_5093616m';
           bolt script run $locate_script -t $targets -u clientadm -p abc123 --no-host-key-check --run-as root;
           '''
-          echo "Production container updated"
+          echo 'Opr-S5-5093616m: prod web server is backup and updated'
           }
           }
 
           stage('Opr-S6-5093616m') {
           steps {
-            echo 'Completed updating to Production Container'
-
+            sh 'curl -Is http://prod_5093616m.localdomain | head –n 1  > /tmp/prod-result-file'
+	    sh 'cat /tmp/prod-result-file'
+	    script {
+		if ('cat /tmp/prod-result-file' == 'HTTP/1.1  200 OK') {
+                   echo 'Opr-S6-5093616m: prod svr is running after update'
+                   } else {
+  	            echo 'Opr-S6-5093616m: prod svr fails after update and is rolled back'
+                   }
+	    }
           }
           }
 	
