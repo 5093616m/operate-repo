@@ -37,7 +37,12 @@ pipeline {
           
           stage('Opr-S3-5093616m') {
           steps {
-            input('Do you want to update to UAT container?')
+            script {
+                v2 = input ( 
+                       message: 'Do you want to generate load test report for uat web server?',
+                       parameters: [choice(name:'',choices: [' Proceed to generate load test report (uat server is running)', 'Abort (uat server is rolled back)'])]
+                            )
+                       }
             echo 'Opr-S3-5093616m: Proceed to generate load test report for uat web server'
           }
           }
