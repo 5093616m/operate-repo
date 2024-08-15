@@ -83,7 +83,17 @@ pipeline {
 	
           stage('Opr-S7-5093616m') {
           steps {
-            echo 'Completed updating to Production Container'
+ 	    script {
+                v2 = input ( 
+                       message: 'Do you want to generate load test report for uat web server?',
+                       parameters: [choice(name:'',choices: [' Proceed to generate load test report (uat server is running)', 'Abort (uat server is rolled back)'])]
+                            )
+                       }
+               if (v2 == 'Rollback') {
+                   echo 'Rollback Completed'
+                   } else if (v2 == 'Deploy to Production Environment') {
+  	            echo "Production container updated"
+                   }	      
           }
           }
       }
