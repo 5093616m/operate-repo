@@ -29,11 +29,11 @@ pipeline {
 	      va = 'cat /tmp/uat-result-file'
 	      vb = 'HTTP/1.1 200 OK'
 		if ('va'=='vb')
-		then
-  		echo 'Opr-S2-5093616m: uat svr is running after update'
-                else
-  	        echo 'Opr-S2-5093616m: uat svr fails after update and is rolled back'
-		fi
+		  then
+  		  echo 'Opr-S2-5093616m: uat svr is running after update'
+                  else
+  	          echo 'Opr-S2-5093616m: uat svr fails after update and is rolled back'
+		  fi
               }
 	     }
           }
