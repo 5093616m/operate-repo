@@ -30,7 +30,7 @@ pipeline {
 		if (va.contains("Hello")) {
   		  echo 'Opr-S2-5093616m: uat svr is running after update'
 		} else {
-		  sh 'docker rm -f uatrb_5093616m
+		  sh 'docker rm -f uatrb_5093616m'
 		  sh 'docker run -d  -it -p 32300:80 --network customnetwork --privileged -h uatrb_5093616m.localdomain --name uatrb_5093616m --add-host=sddo-vm.localdomain:172.20.113.118 --ip=192.168.30.115 bkup_uat_image /sbin/init'
   	          echo 'Opr-S2-5093616m: uat svr fails after update and is rolled back'
                 }
