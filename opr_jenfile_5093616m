@@ -55,7 +55,7 @@ pipeline {
 
           stage('Opr-S5-5093616m') {
             steps {
-             sh 'docker rmi bkup_prod_image'
+             sh 'docker rmi -f bkup_prod_image'
 	     sh 'docker commit prod_5093616m bkup_prod_image'
 	     sh '''#!/bin/bash
              puppet resource file /tmp/5093616m ensure=absent force=true;
@@ -78,10 +78,12 @@ pipeline {
 	      sh 'cat /tmp/prod-result-file'
 	      script {
 	        def vb = sh(returnStdout: true, script: "cat /tmp/prod-result-file")
-	      	if (vb.contains("200")) {
+	      	if (vb.contains("Hello")) {
   		  echo 'Opr-S6-5093616m: prod svr is running after update'
-		}else {
-  	          echo 'Opr-S6-5093616m: prod svr fails after update and is rolled back'
+		} else {
+  	          sh 'docker rm -f prod_5093616m'
+		  sh 'docker run -d  -it -p 32700:80 --network customnetwork --privileged -h prod_5093616m.localdomain --name prod_5093616m --add-host=sddo-vm.localdomain:172.20.113.118 --ip=192.168.30.220 bkup_prod_image /sbin/init'
+		  echo 'Opr-S6-5093616m: prod svr fails after update and is rolled back'
                 }
               }
             }
