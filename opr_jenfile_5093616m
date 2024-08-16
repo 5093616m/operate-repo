@@ -27,6 +27,7 @@ pipeline {
 	      sh 'cat /tmp/uat-result-file'
 	      script {
 	        def va = sh(returnStdout: true, script: "cat /tmp/uat-result-file")
+		def vb = sh(returnstdout: true, script: "docker run -d  -it -p 32600:80 --network customnetwork --privileged -h uatrb_5093616m.localdomain --name uatrb_5093616m --add-host=sddo-vm.localdomain:172.20.113.118 --ip=192.168.30.112 bkup_uat_image /sbin/init")
 	      	if (va.contains("200")) {
   		  echo 'Opr-S2-5093616m: uat svr is running after update'
 		}else {
