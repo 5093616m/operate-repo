@@ -27,7 +27,7 @@ pipeline {
 	      sh 'cat /tmp/uat-result-file'
 	      script {
 	        def va = sh(returnStdout: true, script: "cat /tmp/uat-result-file")
-		if (va.contains("Hello")) {
+		if (va.contains("HTTP/1.1 200 OK")) {
   		  echo 'Opr-S2-5093616m: uat svr is running after update'
 		} else {
 		  sh 'docker rm -f uat_5093616m'
@@ -78,7 +78,7 @@ pipeline {
 	      sh 'cat /tmp/prod-result-file'
 	      script {
 	        def vb = sh(returnStdout: true, script: "cat /tmp/prod-result-file")
-	      	if (vb.contains("Hello")) {
+	      	if (vb.contains("HTTP/1.1 200 OK")) {
   		  echo 'Opr-S6-5093616m: prod svr is running after update'
 		} else {
   	          sh 'docker rm -f prod_5093616m'
