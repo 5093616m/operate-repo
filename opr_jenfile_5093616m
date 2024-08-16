@@ -4,7 +4,7 @@ pipeline {
       stages {
           stage('Opr-S1-5093616m') {
 	    steps {
-            sh 'docker rmi bkup_uat_image'
+            sh 'docker rmi -f bkup_uat_image'
 	    sh 'docker commit uat_5093616m bkup_uat_image'
 	    sh '''#!/bin/bash
             puppet resource file /tmp/5093616m ensure=absent force=true;
